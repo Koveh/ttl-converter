@@ -1,0 +1,15 @@
+wd:Q42 wdt:P31 wd:Q5 ;
+  wdt:P569 "1952-03-11T00:00:00Z"^^xsd:dateTime ;
+  p:P569 s:q42-D8404CDA-25E4-4334-AF13-A3290BCD9C0F .
+
+s:q42-D8404CDA-25E4-4334-AF13-A3290BCD9C0F a wikibase:Statement, wikibase:BestRank ;
+  wikibase:rank wikibase:NormalRank ;
+  ps:P569 "1952-03-11T00:00:00Z"^^xsd:dateTime ;
+  psv:P569 v:426df9023763f08b066f4478480f44cd ;
+  prov:wasDerivedFrom ref:355b56329b78db22be549dec34f2570ca61ca056, ref:a02f3a77ddd343e6b88be25696b055f5131c3d64 .
+
+v:426df9023763f08b066f4478480f44cd a wikibase:TimeValue ;
+  wikibase:timeValue "1952-03-11T00:00:00Z"^^xsd:dateTime ;
+  wikibase:timePrecision "11"^^xsd:integer ;
+  wikibase:timeTimezone "0"^^xsd:integer ;
+  wikibase:timeCalendarModel <http://www.wikidata.org/entity/Q1985727> .
