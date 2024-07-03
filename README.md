@@ -54,7 +54,7 @@ The TTL to new format conversion process consists of several steps, as illustrat
 
 ### 1. Preprocessing
 
-![Preprocessing](Images/preprocessing.png)
+![Preprocessing](Images/preprocessing.jpg)
 
 This step takes the TTL file as a string input and performs the following operations:
 - Removes line breaks and excess spaces
@@ -63,7 +63,7 @@ This step takes the TTL file as a string input and performs the following operat
 
 ### 2. Splitting into Sections
 
-![Splitting into Sections](Images/splitting_sections.png)
+![Splitting into Sections](Images/split_by_sections.jpg)
 
 The preprocessed string is split into sections:
 - Split by period, avoiding splits within data types or URLs
@@ -73,7 +73,7 @@ The preprocessed string is split into sections:
 
 ### 3. Conversion to New Format
 
-![Conversion to New Format](Images/conversion_process.png)
+![Conversion to New Format](Images/convert_to_new_format.jpg)
 
 The main conversion process:
 - Initialize an answer list
@@ -85,7 +85,7 @@ The main conversion process:
 
 ### 4. Recursive Conversion
 
-![Recursive Conversion](Images/recursive_conversion.png)
+![Recursive Conversion](Images/recursive_conversion.jpg)
 
 For nested statements:
 - Check if the object is a reference to another statement
