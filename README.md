@@ -54,7 +54,7 @@ The TTL to new format conversion process consists of several steps, as illustrat
 
 ### 1. Preprocessing
 
-![Preprocessing](Images/preprocessing.jpg)
+![Preprocessing](Images/preprocess_ttl.jpg)
 
 This step takes the TTL file as a string input and performs the following operations:
 - Removes line breaks and excess spaces
