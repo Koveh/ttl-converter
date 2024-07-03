@@ -9,6 +9,12 @@ import os
 from logging.handlers import RotatingFileHandler
 import tempfile
 import time
+import shlex
+
+import csv
+from io import StringIO
+from typing import Dict
+
 
 # Set up logging
 log_dir = os.path.dirname(os.path.abspath(__file__))
@@ -61,13 +67,25 @@ def preprocess_ttl(ttl_text: str) -> str:
     preprocessed = re.sub(r'([;,])(?!\s)', r'\1 ', preprocessed)
     # Remove space before period at the end of statements
     preprocessed = re.sub(r'\s+\.', ' .', preprocessed)
-
+        
+    preprocessed = preprocessed.strip()
     # remove the last dot " ." from the string
     if preprocessed[-1] == ".":
         preprocessed = preprocessed[:-1]
     
-    return preprocessed.strip()
+    return preprocessed
 
+def split_preserve_quotes(s):
+            # pattern = r'"[^"]*"[^\s]*|"[^"]*"|[^\s"]+'
+            # return re.findall(pattern, s)
+            # This regex matches:
+            # 1. Quoted content (ignoring escaped quotes) followed immediately by non-space characters
+            # 2. Or just quoted content (ignoring escaped quotes)
+            # 3. Or non-space characters (including escaped quotes)
+            #pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
+            pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
+            return re.findall(pattern, s)
+               
 def split_by_sections(preprocessed_text: str) -> Dict: 
     """
     Split the preprocessed text into sections based on periods.
@@ -83,18 +101,19 @@ def split_by_sections(preprocessed_text: str) -> Dict:
     result = dict()
     
     for section in sections:
+        if "[" in section:
+            # skip the section
+            continue
+        
         stripped_section = section.strip() # remove leading and trailing whitespaces
         #split section by ; and remove leading and trailing whitespaces
         statements = [statement.strip() for statement in stripped_section.split(";")]
-        
         # get first word in the list (till the first space)
         subject = statements[0].split(" ")[0]
         # pop subject from the string, add " " to remove the leading space
         statements[0] = statements[0].replace(subject + " ", "")
-        #split each statement by space        
-        statement_parts = [statement.split(" ") for statement in statements]
-        
-        result[subject] = statement_parts
+        # split the statement preserving quotes and the spaces inside the quotes
+        result[subject] = [split_preserve_quotes(statement) for statement in statements]
     return result
 
 def recursive_conversion(sections, predicate_chain, index_chain, object, subject):
@@ -119,7 +138,7 @@ def recursive_conversion(sections, predicate_chain, index_chain, object, subject
                     obj = obj[:-1]  # Remove trailing comma
                 new_index = new_index_chain + [str(i)]
                 index = ",".join(new_index)
-                answer.append(f"{subject} <{predicate}>[{index}] {obj}")
+                answer.append(f'{subject} <{predicate}>[{index}] {obj}')
 
 def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
     global answer
@@ -143,7 +162,7 @@ def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
                 for i, obj in enumerate(triple[1:], start=1):
                     if obj.endswith(','):
                         obj = obj[:-1]  # Remove trailing comma
-                    answer.append(f"{subject} <{predicate}>[{i}] {obj}")
+                    answer.append(f'{subject} <{predicate}>[{i}] {obj}')
     
     return "\n".join(answer)
 
