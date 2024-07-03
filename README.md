@@ -23,7 +23,7 @@ This project provides a FastAPI-based web service that converts TTL (Turtle) for
 
 1. Clone this repository:
    ```
-   git clone https://github.com/yourusername/ttl-converter.git
+   git clone https://github.com/Koveh/ttl-converter.git
    cd ttl-converter
    ```
 
