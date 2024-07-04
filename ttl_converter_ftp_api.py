@@ -1,13 +1,14 @@
+import os
+import re
+import time
+import logging
+import tempfile
+from typing import Dict, List
+
 from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, field_validator
-import re
-from typing import List, Dict
-import logging
-import os
 from logging.handlers import RotatingFileHandler
-import tempfile
-import time
 
 
 # Set up logging
@@ -38,12 +39,11 @@ class TTLInput(BaseModel):
             raise ValueError('Invalid TTL format')
         return v
 
-import re
-from typing import Dict, List
 
-# statement prefixes.
-statement_prefix = ("v:", "s:")
-triple_statement_prefix = ("p:", "psv:")
+# Statement prefixes
+STATEMENT_PREFIX = ("v:", "s:")
+TRIPLE_STATEMENT_PREFIX = ("p:", "psv:")
+
 
 def preprocess_ttl(ttl_text: str) -> str:
     """
@@ -55,40 +55,60 @@ def preprocess_ttl(ttl_text: str) -> str:
     Returns:
     str: Preprocessed text as a single line.
     """
-    # Remove line breaks and excess spaces, but preserve important whitespace
     preprocessed = re.sub(r'\s+', ' ', ttl_text)
-    # Ensure space after semicolons and commas for readability
     preprocessed = re.sub(r'([;,])(?!\s)', r'\1 ', preprocessed)
-    # Remove space before period at the end of statements
     preprocessed = re.sub(r'\s+\.', ' .', preprocessed)
-    # Remove spaces
     preprocessed = preprocessed.strip()
-    # remove the last dot " ." from the string
-    if preprocessed[-1] == ".":
+    if preprocessed.endswith('.'):
         preprocessed = preprocessed[:-1]
     return preprocessed
 
+
 def split_by_periods_keep_quotes(text: str) -> List[str]:
-    # Split by period, but not if it's part of a data type or URL
+    """
+    Split the text by periods, preserving quoted content.
+
+    Args:
+    text (str): The input text to split.
+
+    Returns:
+    List[str]: A list of sections split by periods.
+    """
     pattern = r'\.\s+(?=(?:[^"]*"[^"]*")*[^"]*$)'
     sections = re.split(pattern, text)
     return [section.strip() for section in sections]
 
+
 def split_by_semicolons_keep_quotes(text: str) -> List[str]:
-    # Split by semicolon, but not if it's part of a data type or URL or inside quotes
+    """
+    Split the text by semicolons, preserving quoted content.
+
+    Args:
+    text (str): The input text to split.
+
+    Returns:
+    List[str]: A list of statements split by semicolons.
+    """
     pattern = r';\s*(?=(?:[^"]*"[^"]*")*[^"]*$)'
     statements = re.split(pattern, text)
     return [statement.strip() for statement in statements]
 
+
 def split_by_spaces_keep_quotes(text: str) -> List[str]:
-    # 1. Quoted content (ignoring escaped quotes) followed immediately by non-space characters - r'"(?:\\.|[^"\\])*"[^\s]*'
-    # 2. Or just quoted content (ignoring escaped quotes) - r'"(?:\\.|[^"\\])*"'
-    # 3. Or non-space characters (including escaped quotes) - r'[^\s"]+'
-    #pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
+    """
+    Split the text by spaces, preserving quoted content and handling special cases.
+
+    Args:
+    text (str): The input text to split.
+
+    Returns:
+    List[str]: A list of tokens split by spaces.
+    """
     pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
     return re.findall(pattern, text)
-    
-def split_by_sections(preprocessed_text: str) -> Dict: 
+
+
+def split_by_sections(preprocessed_text: str) -> Dict:
     """
     Split the preprocessed text into sections based on periods.
     
@@ -98,27 +118,32 @@ def split_by_sections(preprocessed_text: str) -> Dict:
     Returns:
     Dict: A dictionary with subjects as keys and lists of statement parts as values.
     """
-    # Split by period but not if it's part of a data type or URL or inside quotes
     sections = split_by_periods_keep_quotes(preprocessed_text)
-    result = dict()
+    result = {}
     
     for section in sections:
         if "[" in section:
-            # skip the section
             continue
         
-        stripped_section = section.strip() # remove leading and trailing whitespaces
-        #split section by ; and don't split if it's inside quotes
+        stripped_section = section.strip()
         statements = split_by_semicolons_keep_quotes(stripped_section)
-        # get first word in the list (till the first space)
         subject = statements[0].split(" ")[0]
-        # pop subject from the string, add " " to remove the leading space
         statements[0] = statements[0].replace(subject + " ", "")
-        #split section by " " and don't split if it's inside quotes
         result[subject] = [split_by_spaces_keep_quotes(statement) for statement in statements]
     return result
 
+
 def recursive_conversion(sections, predicate_chain, index_chain, object, subject):
+    """
+    Recursively convert nested triples to the new format.
+
+    Args:
+    sections (Dict): The dictionary of sections.
+    predicate_chain (List[str]): The current chain of predicates.
+    index_chain (List[str]): The current chain of indices.
+    object (str): The current object being processed.
+    subject (str): The original subject of the statement.
+    """
     if object not in sections:
         return
 
@@ -127,59 +152,73 @@ def recursive_conversion(sections, predicate_chain, index_chain, object, subject
         new_index_chain = index_chain.copy()
         new_predicate_chain.append(triple[0])
         
-        if triple[0].startswith(triple_statement_prefix):
+        if triple[0].startswith(TRIPLE_STATEMENT_PREFIX):
             for i, obj in enumerate(triple[1:], start=1):
-                if obj.endswith(','):
-                    obj = obj[:-1]  # Remove trailing comma
+                obj = obj[:-1] if obj.endswith(',') else obj
                 new_index = new_index_chain + [str(i)]
                 recursive_conversion(sections, new_predicate_chain, new_index, obj, subject)
         else:
             predicate = "|".join(new_predicate_chain)
             for i, obj in enumerate(triple[1:], start=1):
-                if obj.endswith(','):
-                    obj = obj[:-1]  # Remove trailing comma
+                obj = obj[:-1] if obj.endswith(',') else obj
                 new_index = new_index_chain + [str(i)]
                 index = ",".join(new_index)
                 answer.append(f'{subject} <{predicate}>[{index}] {obj}')
 
+
 def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
+    """
+    Convert the parsed sections to the new format.
+
+    Args:
+    sections (Dict[str, List[List[str]]]): The dictionary of parsed sections.
+
+    Returns:
+    str: The converted text in the new format.
+    """
     global answer
     answer = []
     
     for subject, triples in sections.items():
-        if subject.startswith(statement_prefix):
+        if subject.startswith(STATEMENT_PREFIX):
             continue
         
         for triple in triples:
             predicate_chain = [triple[0]]
             index_chain = []
             
-            if triple[0].startswith(triple_statement_prefix):
+            if triple[0].startswith(TRIPLE_STATEMENT_PREFIX):
                 for i, obj in enumerate(triple[1:], start=1):
-                    if obj.endswith(','):
-                        obj = obj[:-1]  # Remove trailing comma
+                    obj = obj[:-1] if obj.endswith(',') else obj
                     recursive_conversion(sections, predicate_chain, [str(i)], obj, subject)
             else:
                 predicate = triple[0]
                 for i, obj in enumerate(triple[1:], start=1):
-                    if obj.endswith(','):
-                        obj = obj[:-1]  # Remove trailing comma
+                    obj = obj[:-1] if obj.endswith(',') else obj
                     answer.append(f'{subject} <{predicate}>[{i}] {obj}')
     
     return "\n".join(answer)
 
+
 @app.post("/convert")
 async def convert_ttl(file: UploadFile = File(...)) -> FileResponse:
+    """
+    Convert uploaded TTL file to the new format.
+
+    Args:
+    file (UploadFile): The uploaded TTL file.
+
+    Returns:
+    FileResponse: The converted file as a downloadable response.
+    """
     try:
         start_time = time.time()
         logger.info(f"Received file: {file.filename}")
         
-        # Read the contents of the uploaded file
         contents = await file.read()
         ttl_text = contents.decode("utf-8")
         
-        # Validate the TTL text
-        TTLInput(ttl_text=ttl_text)  # This will raise an error if validation fails
+        TTLInput(ttl_text=ttl_text)
         
         logger.info("Starting TTL conversion")
         preprocessed = preprocess_ttl(ttl_text)
@@ -194,15 +233,18 @@ async def convert_ttl(file: UploadFile = File(...)) -> FileResponse:
 
         logger.info(f"Conversion completed in {execution_time:.2f} seconds")
 
-        # Create a temporary file to store the converted content
         with tempfile.NamedTemporaryFile(delete=False, mode='w', suffix='.txt') as temp_file:
             temp_file.write(new_format)
             temp_file_path = temp_file.name
 
         logger.info(f"Converted file saved to: {temp_file_path}")
 
-        # Return the file as a downloadable response
-        return FileResponse(temp_file_path, media_type='text/plain', filename="converted_ttl.txt", headers={"X-Execution-Time": str(execution_time)})
+        return FileResponse(
+            temp_file_path,
+            media_type='text/plain',
+            filename="converted_ttl.txt",
+            headers={"X-Execution-Time": str(execution_time)}
+        )
 
     except Exception as e:
         logger.error(f"Conversion failed: {str(e)}", exc_info=True)
@@ -211,8 +253,15 @@ async def convert_ttl(file: UploadFile = File(...)) -> FileResponse:
 
 @app.get("/health")
 async def health_check():
+    """
+    Health check endpoint to verify the application status.
+
+    Returns:
+    dict: A dictionary containing the status of the application.
+    """
     logger.info("Health check endpoint accessed")
     return {"status": "healthy"}
+
 
 if __name__ == "__main__":
     import uvicorn
