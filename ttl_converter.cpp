@@ -100,12 +100,14 @@ void recursive_conversion(const std::unordered_map<std::string, std::vector<std:
                           std::vector<std::string>& predicate_chain,
                           std::vector<std::string>& index_chain,
                           std::vector<std::string>& answer) {
-    if (sections.find(current_subject) == sections.end()) {
+    auto it = sections.find(current_subject);
+    if (it == sections.end()) {
         return;
     }
 
-    for (size_t i = 0; i < sections.at(current_subject).size(); ++i) {
-        const auto& triple = sections.at(current_subject)[i];
+    const auto& triples = it->second;
+    for (size_t i = 0; i < triples.size(); ++i) {
+        const auto& triple = triples[i];
         std::vector<std::string> new_predicate_chain = predicate_chain;
         std::vector<std::string> new_index_chain = index_chain;
         new_predicate_chain.push_back(triple[0]);
@@ -137,8 +139,9 @@ void recursive_conversion(const std::unordered_map<std::string, std::vector<std:
 
 std::string convert_to_new_format(const std::unordered_map<std::string, std::vector<std::vector<std::string>>>& sections) {
     std::vector<std::string> answer;
+    answer.reserve(sections.size() * 10);  // Rough estimate to reduce reallocations
 
-    for (const auto& [subject, triples] : sections) {
+    for (const auto& [subject, _] : sections) {
         if (std::find(STATEMENT_PREFIX.begin(), STATEMENT_PREFIX.end(), subject.substr(0, 2)) != STATEMENT_PREFIX.end()) {
             continue;
         }
