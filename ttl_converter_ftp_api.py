@@ -2,18 +2,12 @@ from fastapi import FastAPI, File, UploadFile, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel, field_validator
 import re
-from typing import List, Dict, Any, Tuple
-from collections import defaultdict
+from typing import List, Dict
 import logging
 import os
 from logging.handlers import RotatingFileHandler
 import tempfile
 import time
-import shlex
-
-import csv
-from io import StringIO
-from typing import Dict
 
 
 # Set up logging
@@ -67,25 +61,33 @@ def preprocess_ttl(ttl_text: str) -> str:
     preprocessed = re.sub(r'([;,])(?!\s)', r'\1 ', preprocessed)
     # Remove space before period at the end of statements
     preprocessed = re.sub(r'\s+\.', ' .', preprocessed)
-        
+    # Remove spaces
     preprocessed = preprocessed.strip()
     # remove the last dot " ." from the string
     if preprocessed[-1] == ".":
         preprocessed = preprocessed[:-1]
-    
     return preprocessed
 
-def split_preserve_quotes(s):
-            # pattern = r'"[^"]*"[^\s]*|"[^"]*"|[^\s"]+'
-            # return re.findall(pattern, s)
-            # This regex matches:
-            # 1. Quoted content (ignoring escaped quotes) followed immediately by non-space characters
-            # 2. Or just quoted content (ignoring escaped quotes)
-            # 3. Or non-space characters (including escaped quotes)
-            #pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
-            pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
-            return re.findall(pattern, s)
-               
+def split_by_periods_keep_quotes(text: str) -> List[str]:
+    # Split by period, but not if it's part of a data type or URL
+    pattern = r'\.\s+(?=(?:[^"]*"[^"]*")*[^"]*$)'
+    sections = re.split(pattern, text)
+    return [section.strip() for section in sections]
+
+def split_by_semicolons_keep_quotes(text: str) -> List[str]:
+    # Split by semicolon, but not if it's part of a data type or URL or inside quotes
+    pattern = r';\s*(?=(?:[^"]*"[^"]*")*[^"]*$)'
+    statements = re.split(pattern, text)
+    return [statement.strip() for statement in statements]
+
+def split_by_spaces_keep_quotes(text: str) -> List[str]:
+    # 1. Quoted content (ignoring escaped quotes) followed immediately by non-space characters - r'"(?:\\.|[^"\\])*"[^\s]*'
+    # 2. Or just quoted content (ignoring escaped quotes) - r'"(?:\\.|[^"\\])*"'
+    # 3. Or non-space characters (including escaped quotes) - r'[^\s"]+'
+    #pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
+    pattern = r'"(?:\\.|[^"\\])*"[^\s]*|"(?:\\.|[^"\\])*"|[^\s"]+'
+    return re.findall(pattern, text)
+    
 def split_by_sections(preprocessed_text: str) -> Dict: 
     """
     Split the preprocessed text into sections based on periods.
@@ -96,8 +98,8 @@ def split_by_sections(preprocessed_text: str) -> Dict:
     Returns:
     Dict: A dictionary with subjects as keys and lists of statement parts as values.
     """
-    # Split by period, but not if it's part of a data type or URL
-    sections = re.split(r'\.\s+(?=[^\s])', preprocessed_text)
+    # Split by period but not if it's part of a data type or URL or inside quotes
+    sections = split_by_periods_keep_quotes(preprocessed_text)
     result = dict()
     
     for section in sections:
@@ -106,20 +108,20 @@ def split_by_sections(preprocessed_text: str) -> Dict:
             continue
         
         stripped_section = section.strip() # remove leading and trailing whitespaces
-        #split section by ; and remove leading and trailing whitespaces
-        statements = [statement.strip() for statement in stripped_section.split(";")]
+        #split section by ; and don't split if it's inside quotes
+        statements = split_by_semicolons_keep_quotes(stripped_section)
         # get first word in the list (till the first space)
         subject = statements[0].split(" ")[0]
         # pop subject from the string, add " " to remove the leading space
         statements[0] = statements[0].replace(subject + " ", "")
-        # split the statement preserving quotes and the spaces inside the quotes
-        result[subject] = [split_preserve_quotes(statement) for statement in statements]
+        #split section by " " and don't split if it's inside quotes
+        result[subject] = [split_by_spaces_keep_quotes(statement) for statement in statements]
     return result
 
 def recursive_conversion(sections, predicate_chain, index_chain, object, subject):
     if object not in sections:
         return
-    
+
     for triple in sections[object]:
         new_predicate_chain = predicate_chain.copy()
         new_index_chain = index_chain.copy()
@@ -167,7 +169,7 @@ def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
     return "\n".join(answer)
 
 @app.post("/convert")
-async def convert_ttl(file: UploadFile = File(...)):
+async def convert_ttl(file: UploadFile = File(...)) -> FileResponse:
     try:
         start_time = time.time()
         logger.info(f"Received file: {file.filename}")
