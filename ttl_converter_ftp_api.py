@@ -41,9 +41,10 @@ class TTLInput(BaseModel):
 
 
 # Statement prefixes
-STATEMENT_PREFIX = ("v:", "s:")
-TRIPLE_STATEMENT_PREFIX = ("p:", "psv:")
-
+# STATEMENT_PREFIX = ("v:", "s:")
+# TRIPLE_STATEMENT_PREFIX = ("p:", "psv:")
+STATEMENT_PREFIX = ["s:", "v:", "ref:"]
+TRIPLE_STATEMENT_PREFIX = ["p:", "ps:", "psv:", "pq:", "pqv:", "pr:", "prv:", "wdt:"]
 
 def preprocess_ttl(ttl_text: str) -> str:
     """
