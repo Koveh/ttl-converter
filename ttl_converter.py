@@ -97,35 +97,33 @@ def split_by_sections(preprocessed_text: str, dictionary_of_sections: Dict[str, 
     
     return result, "\n".join(prefixes)
 
-def recursive_conversion(sections, predicate_chain, index_chain, object, subject):
-    # Recursively convert nested structures
-    if object not in sections:
-        return
+def convert_and_write_to_file(sections: Dict[str, List[List[str]]], output_file):
+    def recursive_conversion(predicate_chain, index_chain, object, subject):
+        if object not in sections:
+            return
 
-    for triple in sections[object]:
-        new_predicate_chain = predicate_chain.copy()
-        new_index_chain = index_chain.copy()
-        new_predicate_chain.append(triple[0])
-        
-        if triple[1].startswith(tuple(STATEMENT_PREFIX)):
-            # Handle nested statements
-            for i, obj in enumerate(triple[1:], start=1):
-                obj = obj[:-1] if obj.endswith(',') else obj
-                new_index = new_index_chain + [str(i)]
-                recursive_conversion(sections, new_predicate_chain, new_index, obj, subject)
-        else:
-            # Create new format entries
-            predicates = "|".join(new_predicate_chain)
-            for i, obj in enumerate(triple[1:], start=1):
-                obj = obj[:-1] if obj.endswith(',') else obj
-                new_index = new_index_chain + [str(i)]
-                indexes = ",".join(new_index)
-                answer.append(f'{subject} <{predicates}>[{indexes}] {obj}')
+        for triple in sections[object]:
+            if not triple:  # Skip empty triples
+                print(f"Warning: Empty triple found for object {object}")
+                continue
+            
+            new_predicate_chain = predicate_chain + [triple[0]]
+            
+            if len(triple) > 1 and triple[1].startswith(tuple(STATEMENT_PREFIX)) and object != triple[1]:
+                # Handle nested statements
+                for i, obj in enumerate(triple[1:], start=1):
+                    obj = obj[:-1] if obj.endswith(',') else obj
+                    new_index = index_chain + [str(i)]
+                    recursive_conversion(new_predicate_chain, new_index, obj, subject)
+            else:
+                # Create new format entries
+                predicates = "|".join(new_predicate_chain)
+                for i, obj in enumerate(triple[1:], start=1):
+                    obj = obj[:-1] if obj.endswith(',') else obj
+                    new_index = index_chain + [str(i)]
+                    indexes = ",".join(new_index)
+                    output_file.write(f'{subject} <{predicates}>[{indexes}] {obj}\n')
 
-def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
-    global answer
-    answer = []
-    
     for subject, triples in sections.items():
         # Skip special statements
         if subject.startswith(tuple(STATEMENT_PREFIX)):
@@ -142,15 +140,13 @@ def convert_to_new_format(sections: Dict[str, List[List[str]]]) -> str:
                 # Remove trailing comma if present
                 obj = obj[:-1] if obj.endswith(',') else obj
                 
-                if len(triple) > 1 and triple[1].startswith(tuple(STATEMENT_PREFIX)):
+                if len(triple) > 1 and triple[1].startswith(tuple(STATEMENT_PREFIX)) and triple[1] != subject:
                     # Handle nested structures
-                    recursive_conversion(sections, predicate_chain, [str(i)], obj, subject)
+                    recursive_conversion(predicate_chain, [str(i)], obj, subject)
                 else:
                     # Create new format entry
                     predicate = triple[0]
-                    answer.append(f'{subject} <{predicate}>[{i}] {obj}')
-    
-    return "\n".join(answer)
+                    output_file.write(f'{subject} <{predicate}>[{i}] {obj}\n')
 
 def main():
     # Read input file
@@ -163,15 +159,15 @@ def main():
     sections, prefixes = split_by_sections(preprocessed_ttl, dictionary_of_sections)
     
     # Merge processed sections
-    for key in dictionary_of_sections:
-        sections[key] = dictionary_of_sections[key]
-    
-    # Convert to new format
-    new_format = prefixes + "\n" + convert_to_new_format(sections)
+    sections.update(dictionary_of_sections)
     
     # Write output file
     with open('output.txt', 'w', encoding='utf-8') as output_file:
-        output_file.write(new_format)
+        # Write prefixes
+        output_file.write(prefixes + "\n")
+        
+        # Convert and write directly to file
+        convert_and_write_to_file(sections, output_file)
 
 if __name__ == "__main__":
     main()
