@@ -1,0 +1,55 @@
+@prefix wd: <http://www.wikidata.org/entity/> .
+
+wd:Q42 wdt:P31 wd:Q5 ;
+  wdt:P569 "1952-03-11T00:00:00Z"^^xsd:dateTime ;
+  psv:P569 s:q42-D8404CDA-25E4-4334-AF13-A3290BCD9C0F .
+
+s:q42-D8404CDA-25E4-4334-AF13-A3290BCD9C0F a wikibase:Statement, wikibase:BestRank ;
+  wikibase:rank wikibase:NormalRank ;
+  ps:P569 "1952-03-11T00:00:00Z"^^xsd:dateTime ;
+  psv:P569 v:426df9023763f08b066f4478480f44cd ;
+  prov:wasDerivedFrom ref:355b56329b78db22be549dec34f2570ca61ca056, ref:a02f3a77ddd343e6b88be25696b055f5131c3d64 .
+
+v:426df9023763f08b066f4478480f44cd a wikibase:TimeValue ;
+  wikibase:timeValue "1952 03\" 11\"T00:00:00Z"^^xsd:dateTime ;
+  schema1:description "specialization of a person or organization ; . see P106 for the occupation"@en ;
+  wikibase:timePrecision "11"^^xsd:integer ;
+  wikibase:timeTimezone "0"^^xsd:integer ;
+  wikibase:timeCalendarModel <http://www.wikidata.org/entity/Q1985727> .
+
+wd:Q937 rdfs:label "Albert Einstein"@en ;
+    wdt:P31 wd:Q5 ;
+    wdt:P106 wd:Q169470, wd:Q1650915, wd:Q593644 ;
+    p:P26 [
+        ps:P26 wd:Q101036 ;
+        pq:P580 "1903-01-06T00:00:00Z"^^xsd:dateTime ;
+        pq:P582 "1919-02-14T00:00:00Z"^^xsd:dateTime], [ ps:P26 wd:Q56153 ;
+        pq:P580 "1919-06-02T00:00:00Z"^^xsd:dateTime ;
+        pq:P582 "1936-12-14T00:00:00Z"^^xsd:dateTime],  ;
+    p:P1971 [
+        ps:P1971 "E = mc²" ;
+        pq:P805 wd:Q46845 ] .
+
+
+wd:Q7251 rdfs:label "William Shakespeare"@en ;
+    wdt:P31 wd:Q5 ;
+    wdt:P106 wd:Q36180 ;
+    wdt:P569 "1564-04-23T00:00:00Z"^^xsd:dateTime ;
+    wdt:P570 "1616-04-23T00:00:00Z"^^xsd:dateTime .
+
+wd:Q76 rdfs:label "Barack Obama"@en ;
+    wdt:P31 wd:Q5 ;
+    wdt:P106 wd:Q30461 ;
+    wdt:P569 "1961-08-04T00:00:00Z"^^xsd:dateTime ;
+    wdt:P19 wd:Q61976 .
+
+wd:Q2 rdfs:label "Earth"@en ;
+    wdt:P31 wd:Q3504248 ;
+    wdt:P361 wd:Q544 ;
+    wdt:P2067 "5.97237e+24"^^xsd:decimal .
+
+wd:Q7186 rdfs:label "Marie Curie"@en ;
+    wdt:P31 wd:Q5 ;
+    wdt:P106 wd:Q169470, wd:Q593644 ;
+    wdt:P166 wd:Q38104 ;
+    wdt:P569 "1867-11-07T00:00:00Z"^^xsd:dateTime .

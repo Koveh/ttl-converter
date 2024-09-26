@@ -1,0 +1,504 @@
+\begin{thebibliography}{}
+
+\bibitem [\protect \citeauthoryear {%
+Bizer%
+, Heath%
+\BCBL {}\ \BBA {} Berners-Lee%
+}{%
+Bizer%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2011}}%
+}]{%
+bizer2011linkeddata}
+\APACinsertmetastar {%
+bizer2011linkeddata}%
+\begin{APACrefauthors}%
+Bizer, C.%
+, Heath, T.%
+\BCBL {}\ \BBA {} Berners-Lee, T.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2011}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Linked Data: The Story So Far} {Linked data: The story
+  so far}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Semantic Services, Interoperability and Web
+  Applications: Emerging Concepts}{}{}{205--227}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Cyganiak%
+, Wood%
+\BCBL {}\ \BBA {} Lanthaler%
+}{%
+Cyganiak%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2014}}%
+}]{%
+cyganiak2014rdf}
+\APACinsertmetastar {%
+cyganiak2014rdf}%
+\begin{APACrefauthors}%
+Cyganiak, R.%
+, Wood, D.%
+\BCBL {}\ \BBA {} Lanthaler, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+\APACrefbtitle {{RDF} 1.1 Concepts and Abstract Syntax} {{RDF} 1.1 concepts and
+  abstract syntax}\ \APACbVolEdTR {}{W3C Recommendation}.
+\newblock
+\APACaddressInstitution{}{W3C}.
+\newblock
+\begin{APACrefURL} \url{https://www.w3.org/TR/rdf11-concepts/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Ehrlinger%
+\ \BBA {} W{\"o}ss%
+}{%
+Ehrlinger%
+\ \BBA {} W{\"o}ss%
+}{%
+{\protect \APACyear {2016}}%
+}]{%
+ehrlinger2016towards}
+\APACinsertmetastar {%
+ehrlinger2016towards}%
+\begin{APACrefauthors}%
+Ehrlinger, L.%
+\BCBT {}\ \BBA {} W{\"o}ss, W.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2016}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Towards a Definition of Knowledge Graphs} {Towards a
+  definition of knowledge graphs}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {CEUR Workshop Proceedings} {Ceur workshop proceedings}\
+  (\BVOL\ 1695, \BPGS\ 1--10).
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fern{\'a}ndez%
+, Mart{\'\i}nez-Prieto%
+, Guti{\'e}rrez%
+, Polleres%
+\BCBL {}\ \BBA {} Arias%
+}{%
+Fern{\'a}ndez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+fernandez2013binary}
+\APACinsertmetastar {%
+fernandez2013binary}%
+\begin{APACrefauthors}%
+Fern{\'a}ndez, J\BPBI D.%
+, Mart{\'\i}nez-Prieto, M\BPBI A.%
+, Guti{\'e}rrez, C.%
+, Polleres, A.%
+\BCBL {}\ \BBA {} Arias, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Binary {RDF} Representation for Publication and Exchange
+  ({HDT})} {Binary {RDF} representation for publication and exchange
+  ({HDT})}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Journal of Web Semantics}{19}{}{22--41}.
+\newblock
+\begin{APACrefDOI} \doi{10.1016/j.websem.2013.01.002} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Fern{\'a}ndez%
+, Mart{\'\i}nez-Prieto%
+, Polleres%
+\BCBL {}\ \BBA {} Reindorf%
+}{%
+Fern{\'a}ndez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+fernandez2018hdtq}
+\APACinsertmetastar {%
+fernandez2018hdtq}%
+\begin{APACrefauthors}%
+Fern{\'a}ndez, J\BPBI D.%
+, Mart{\'\i}nez-Prieto, M\BPBI A.%
+, Polleres, A.%
+\BCBL {}\ \BBA {} Reindorf, J.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{HDTQ}: Managing {RDF} Datasets in Compressed Space}
+  {{HDTQ}: Managing {RDF} datasets in compressed space}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {European Semantic Web Conference} {European semantic web
+  conference}\ (\BPGS\ 191--208).
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-319-93417-4\_13} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Harris%
+, Seaborne%
+\BCBL {}\ \BBA {} Prud'hommeaux%
+}{%
+Harris%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2013}}%
+}]{%
+harris2013sparql}
+\APACinsertmetastar {%
+harris2013sparql}%
+\begin{APACrefauthors}%
+Harris, S.%
+, Seaborne, A.%
+\BCBL {}\ \BBA {} Prud'hommeaux, E.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2013}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {{SPARQL} 1.1 Query Language} {{SPARQL} 1.1 query
+  language}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{W3C Recommendation}{21}{10}{}.
+\newblock
+\begin{APACrefURL} \url{https://www.w3.org/TR/sparql11-query/} \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hartig%
+}{%
+Hartig%
+}{%
+{\protect \APACyear {2017}}%
+}]{%
+hartig2017foundations}
+\APACinsertmetastar {%
+hartig2017foundations}%
+\begin{APACrefauthors}%
+Hartig, O.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2017}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Foundations of {RDF}* and {SPARQL}*: An Alternative
+  Approach to Statement-Level Metadata in {RDF}} {Foundations of {RDF}* and
+  {SPARQL}*: An alternative approach to statement-level metadata in
+  {RDF}}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {AMW 2017: 11th Alberto Mendelzon International Workshop
+  on Foundations of Data Management and the Web.} {Amw 2017: 11th alberto
+  mendelzon international workshop on foundations of data management and the
+  web.}
+\newblock
+\begin{APACrefURL} \url{http://ceur-ws.org/Vol-1912/paper12.pdf}
+  \end{APACrefURL}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Hogan%
+}{%
+Hogan%
+}{%
+{\protect \APACyear {2020}}%
+}]{%
+HoganRDF}
+\APACinsertmetastar {%
+HoganRDF}%
+\begin{APACrefauthors}%
+Hogan, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYear{2020}.
+\newblock
+\APACrefbtitle {An Introduction to {RDF} and Linked Data} {An introduction to
+  {RDF} and linked data}\ (\BVOL~11)\ (\BNUM~2).
+\newblock
+\APACaddressPublisher{}{Morgan \& Claypool Publishers}.
+\newblock
+\begin{APACrefURL} \url{https://doi.org/10.2200/S00990ED1V01Y202009WBE018}
+  \end{APACrefURL}
+\newblock
+\begin{APACrefDOI} \doi{10.2200/S00990ED1V01Y202009WBE018} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Malyshev%
+, Kr{\"o}tzsch%
+, Gonz{\'a}lez%
+, Gonsior%
+\BCBL {}\ \BBA {} Bielefeldt%
+}{%
+Malyshev%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2018}}%
+}]{%
+malyshev2018getting}
+\APACinsertmetastar {%
+malyshev2018getting}%
+\begin{APACrefauthors}%
+Malyshev, S.%
+, Kr{\"o}tzsch, M.%
+, Gonz{\'a}lez, L.%
+, Gonsior, J.%
+\BCBL {}\ \BBA {} Bielefeldt, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2018}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Getting the Most Out of {Wikidata}: Semantic Technology
+  Usage in {Wikipedia}'s Knowledge Graph} {Getting the most out of {Wikidata}:
+  Semantic technology usage in {Wikipedia}'s knowledge graph}.{\BBCQ}
+\newblock
+\BIn{} \APACrefbtitle {International Semantic Web Conference} {International
+  semantic web conference}\ (\BPGS\ 376--394).
+\newblock
+\begin{APACrefDOI} \doi{10.1007/978-3-030-00668-6\_23} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Open Food Facts}%
+}{%
+{Open Food Facts}%
+}{%
+{\protect \APACyear {2023}}%
+}]{%
+openfoodfacts}
+\APACinsertmetastar {%
+openfoodfacts}%
+\begin{APACrefauthors}%
+{Open Food Facts}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023}{}{}.
+\newblock
+\APACrefbtitle {Open Food Facts.} {Open food facts.}
+\newblock
+\APAChowpublished {\url{https://github.com/openfoodfacts}}.
+\newblock
+\APACrefnote{GitHub repository}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Oxford Semantic Technologies}%
+}{%
+{Oxford Semantic Technologies}%
+}{%
+{\protect \APACyear {2023}}%
+}]{%
+oxfordsemantic2023wikidata}
+\APACinsertmetastar {%
+oxfordsemantic2023wikidata}%
+\begin{APACrefauthors}%
+{Oxford Semantic Technologies}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023}{}{}.
+\newblock
+\APACrefbtitle {Enhancing {Wikidata} Performance with {RDFox}: How to Dissect
+  the World's Leading {RDF} Database Faster.} {Enhancing {Wikidata} performance
+  with {RDFox}: How to dissect the world's leading {RDF} database faster.}
+\newblock
+\APAChowpublished
+  {\url{https://www.oxfordsemantic.tech/blog/enhancing-wikidata-performance-with-rdfox-how-to-dissect-the-worlds-leading-rdf-database-faster}}.
+\newblock
+\APACrefnote{Accessed: 2023-05-15}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+P{\'e}rez%
+, Arenas%
+\BCBL {}\ \BBA {} Gutierrez%
+}{%
+P{\'e}rez%
+\ \protect \BOthers {.}}{%
+{\protect \APACyear {2009}}%
+}]{%
+perez2009semantics}
+\APACinsertmetastar {%
+perez2009semantics}%
+\begin{APACrefauthors}%
+P{\'e}rez, J.%
+, Arenas, M.%
+\BCBL {}\ \BBA {} Gutierrez, C.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2009}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Semantics and Complexity of SPARQL} {Semantics and
+  complexity of sparql}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{ACM Transactions on Database Systems
+  (TODS)}{34}{3}{1--45}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{RDF HDT}%
+}{%
+{RDF HDT}%
+}{%
+{\protect \APACyear {2023}}%
+{\protect \APACexlab {{\protect \BCnt {1}}}}}]{%
+rdfhdt}
+\APACinsertmetastar {%
+rdfhdt}%
+\begin{APACrefauthors}%
+{RDF HDT}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023{\protect \BCnt {1}}}{}{}.
+\newblock
+\APACrefbtitle {Datasets.} {Datasets.}
+\newblock
+\APAChowpublished {\url{https://www.rdfhdt.org/datasets/}}.
+\newblock
+\APACrefnote{Accessed: 2023-05-15}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{RDF HDT}%
+}{%
+{RDF HDT}%
+}{%
+{\protect \APACyear {2023}}%
+{\protect \APACexlab {{\protect \BCnt {2}}}}}]{%
+hdtit}
+\APACinsertmetastar {%
+hdtit}%
+\begin{APACrefauthors}%
+{RDF HDT}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023{\protect \BCnt {2}}}{}{}.
+\newblock
+\APACrefbtitle {{HDT-it}: {HDT} Interactive Terminal.} {{HDT-it}: {HDT}
+  interactive terminal.}
+\newblock
+\APAChowpublished {\url{https://github.com/rdfhdt/hdt-it}}.
+\newblock
+\APACrefnote{GitHub repository}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{RDF HDT}%
+}{%
+{RDF HDT}%
+}{%
+{\protect \APACyear {2023}}%
+{\protect \APACexlab {{\protect \BCnt {3}}}}}]{%
+rdf2hdt}
+\APACinsertmetastar {%
+rdf2hdt}%
+\begin{APACrefauthors}%
+{RDF HDT}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2023{\protect \BCnt {3}}}{}{}.
+\newblock
+\APACrefbtitle {rdf2hdt: {RDF} to {HDT} Converter.} {rdf2hdt: {RDF} to {HDT}
+  converter.}
+\newblock
+\APAChowpublished {\url{https://github.com/rdfhdt/hdt-cpp}}.
+\newblock
+\APACrefnote{GitHub repository}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Singhal%
+}{%
+Singhal%
+}{%
+{\protect \APACyear {2012}}%
+}]{%
+singhal2012introducing}
+\APACinsertmetastar {%
+singhal2012introducing}%
+\begin{APACrefauthors}%
+Singhal, A.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2012}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Introducing the Knowledge Graph: Things, Not Strings}
+  {Introducing the knowledge graph: Things, not strings}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Official Google Blog}{5}{}{1}.
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+Vrande{\v{c}}i{\'c}%
+\ \BBA {} Kr{\"o}tzsch%
+}{%
+Vrande{\v{c}}i{\'c}%
+\ \BBA {} Kr{\"o}tzsch%
+}{%
+{\protect \APACyear {2014}}%
+}]{%
+vrandecic2014wikidata}
+\APACinsertmetastar {%
+vrandecic2014wikidata}%
+\begin{APACrefauthors}%
+Vrande{\v{c}}i{\'c}, D.%
+\BCBT {}\ \BBA {} Kr{\"o}tzsch, M.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2014}{}{}.
+\newblock
+{\BBOQ}\APACrefatitle {Wikidata: A Free Collaborative Knowledge Base}
+  {Wikidata: A free collaborative knowledge base}.{\BBCQ}
+\newblock
+\APACjournalVolNumPages{Communications of the ACM}{57}{10}{78--85}.
+\newblock
+\begin{APACrefDOI} \doi{10.1145/2629489} \end{APACrefDOI}
+\PrintBackRefs{\CurrentBib}
+
+\bibitem [\protect \citeauthoryear {%
+{Wikidata}%
+}{%
+{Wikidata}%
+}{%
+{\protect \APACyear {2024}}%
+}]{%
+wikidata_dumps}
+\APACinsertmetastar {%
+wikidata_dumps}%
+\begin{APACrefauthors}%
+{Wikidata}.%
+\end{APACrefauthors}%
+\unskip\
+\newblock
+\APACrefYearMonthDay{2024}{}{}.
+\newblock
+\APACrefbtitle {Wikidata Dumps.} {Wikidata dumps.}
+\newblock
+\APAChowpublished {\url{https://dumps.wikimedia.org/wikidatawiki/entities/}}.
+\newblock
+\APACrefnote{Accessed: 2024-04-27}
+\PrintBackRefs{\CurrentBib}
+
+\end{thebibliography}

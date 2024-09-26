@@ -1,0 +1,77 @@
+@prefix : <http://example.org/> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+:Einstein a :Person ;
+    :name "Albert Einstein" ;
+    :married :Marriage1, :Marriage2 .
+
+:Maric a :Person ;
+    :name "Mileva Marić" .
+
+:Marriage1 a :Marriage ;
+    :spouse :Maric ;
+    :order 1 ;
+    :start "1903-01-06"^^xsd:date ;
+    :end "1919-02-14"^^xsd:date .
+
+:Marriage2 a :Marriage ;
+    :spouse :Maric ;
+    :order 2 ;
+    :start "1925-01-01"^^xsd:date ;
+    :end "1930-12-31"^^xsd:date .
+# @prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+# @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+# @prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+# @prefix : <http://example.org/einstein#> .
+
+# :AlbertEinstein a :Person ;
+#     rdfs:label "Albert Einstein" .
+
+# :MilevaMaric a :Person ;
+#     rdfs:label "Mileva Marić" .
+
+# # First marriage
+# :AlbertEinstein :marriage :Marriage1 .
+# :Marriage1 a :Marriage ;
+#     :spouse :MilevaMaric ;
+#     :startDate "1903-01-06"^^xsd:date ;
+#     :endDate "1919-02-14"^^xsd:date .
+
+# # Second marriage (hypothetical for this example)
+# :AlbertEinstein :marriage :Marriage2 .
+# :Marriage2 a :Marriage ;
+#     :spouse :MilevaMaric ;
+#     :startDate "1925-01-01"^^xsd:date ;
+#     :endDate "1930-12-31"^^xsd:date .
+
+# # Using reification to add more context to each marriage
+# :Marriage1Statement a rdf:Statement ;
+#     rdf:subject :AlbertEinstein ;
+#     rdf:predicate :marriage ;
+#     rdf:object :Marriage1 ;
+#     :marriageOrder 1 ;
+#     :divorceReason "Separation due to Einstein's work commitments" .
+
+# :Marriage2Statement a rdf:Statement ;
+#     rdf:subject :AlbertEinstein ;
+#     rdf:predicate :marriage ;
+#     rdf:object :Marriage2 ;
+#     :marriageOrder 2 ;
+#     :divorceReason "Irreconcilable differences" .
+
+# # Alternative representation using blank nodes
+# :AlbertEinstein :hasMarriage [
+#     a :Marriage ;
+#     :spouse :MilevaMaric ;
+#     :startDate "1903-01-06"^^xsd:date ;
+#     :endDate "1919-02-14"^^xsd:date ;
+#     :marriageOrder 1
+# ] .
+
+# :AlbertEinstein :hasMarriage [
+#     a :Marriage ;
+#     :spouse :MilevaMaric ;
+#     :startDate "1925-01-01"^^xsd:date ;
+#     :endDate "1930-12-31"^^xsd:date ;
+#     :marriageOrder 2
+# ] .

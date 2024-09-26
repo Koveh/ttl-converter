@@ -1,0 +1,21 @@
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix ps: <http://www.wikidata.org/prop/statement/> .
+@prefix psv: <http://www.wikidata.org/prop/statement/value/> .
+@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+
+wd:Q937 rdfs:label "Albert Einstein" .
+wd:Q183 rdfs:label "Germany" .
+
+
+# Einstein's place of birth (complex statement)
+wd:Q937 p:P19 wd:Q937BirthStatement .
+wd:Q937BirthStatement a wikibase:Statement ;
+    pq:P17 wd:Q183 ;  # country (P17) : Germany (Q183)
+    pq:P585 "1879-03-14"^^xsd:date ;  # point in time (P585) : birth date
+    wikibase:rank wikibase:NormalRank .

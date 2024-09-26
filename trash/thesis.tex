@@ -1,0 +1,82 @@
+\documentclass[a4paper, 12pt, twoside]{article}
+% Language and encoding packages
+\usepackage[T1,T2A]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[russian,english]{babel}
+% Other packages
+\usepackage{eso-pic}
+\usepackage{fancyhdr}
+\usepackage{pdfpages}
+\usepackage{amsmath}
+\usepackage{apacite}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+
+
+\usepackage{graphicx}
+\graphicspath{{./images_thesis/}}
+
+% Add parskip package for increased paragraph spacing
+\usepackage[skip=10pt]{parskip}
+
+% Add fvextra package for better verbatim environments
+\usepackage{fvextra}
+\fvset{
+  breaklines=true,  % Enable line breaking
+  breakanywhere=true,  % Allow breaks at any character
+  breakautoindent=false,  % No indentation for continued lines
+  tabsize=4  % Set tab size to 4 spaces
+}
+
+% Redefine verbatim environment to use fvextra
+\let\oldverbatim\verbatim
+\let\endoldverbatim\endverbatim
+\renewenvironment{verbatim}{%
+  \VerbatimEnvironment
+  \begin{Verbatim}
+}{%
+  \end{Verbatim}
+}
+
+% Background image command
+\newcommand\BackgroundPic{%
+\put(0,0){%
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,keepaspectratio]{background.pdf}%
+\vfill
+}}}
+% Add background image to all pages
+\AddToShipoutPictureBG*{\BackgroundPic}
+% Header and footer settings
+\fancyhf{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+\fancyfoot[L]{\hspace*{-16mm}
+\includegraphics[scale=0.3]{logoDepartment.pdf}}
+\pagestyle{fancy}
+
+% Place hyperref last to avoid conflicts
+\usepackage{hyperref}
+
+
+\begin{document}
+\input{titlepage}
+\tableofcontents
+\listoffigures
+\listoftables
+
+
+\input{abstract}
+\input{chapter1}
+\input{chapter2}
+\input{chapter3}
+\input{chapter4}
+\input{chapter5}
+\input{chapter6}
+\input{chapter7}
+\bibliographystyle{apacite}
+\bibliography{reference}
+
+\end{document}

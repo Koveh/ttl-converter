@@ -1,0 +1,58 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix foaf: <http://xmlns.com/foaf/0.1/> .
+@prefix dbo: <http://dbpedia.org/ontology/> .
+@prefix schema: <http://schema.org/> .
+@prefix : <http://example.org/#> .
+
+:AlbertEinstein a foaf:Person, dbo:Scientist ;
+    foaf:name "Albert Einstein" ;
+    schema:birthDate "1879-03-14"^^xsd:date ;
+    schema:deathDate "1955-04-18"^^xsd:date ;
+    dbo:almaMater :ETHZurich ;
+    :marriedTo :MilevaMaric, :ElsaEinstein ;
+    dbo:knownFor :TheoryOfRelativity, :PhotoelectricEffect ;
+    :received :NobelPrizeInPhysics .
+
+:ETHZurich a dbo:University ;
+    foaf:name "ETH Zurich" ;
+    schema:location "Zurich, Switzerland" ;
+    :formerlyKnownAs :ZurichPolytechnic .
+
+:ZurichPolytechnic a dbo:University ;
+    foaf:name "Zurich Polytechnic" ;
+    :nowKnownAs :ETHZurich .
+
+:MilevaMaric a foaf:Person ;
+    foaf:name "Mileva Marić" ;
+    :relationshipTo :AlbertEinstein ;
+    dbo:almaMater :ETHZurich .
+
+:ElsaEinstein a foaf:Person ;
+    foaf:name "Elsa Einstein" ;
+    :relationshipTo :AlbertEinstein .
+
+:TheoryOfRelativity a :ScientificTheory ;
+    rdfs:label "Theory of Relativity" ;
+    :yearPublished "1915"^^xsd:gYear ;
+    :includes :GeneralRelativity, :SpecialRelativity .
+
+:GeneralRelativity a :ScientificTheory ;
+    rdfs:label "General Relativity" ;
+    dbo:partOf :TheoryOfRelativity .
+
+:SpecialRelativity a :ScientificTheory ;
+    rdfs:label "Special Relativity" ;
+    dbo:partOf :TheoryOfRelativity .
+
+:PhotoelectricEffect a :ScientificDiscovery ;
+    rdfs:label "Photoelectric Effect" ;
+    :yearPublished "1905"^^xsd:gYear ;
+    :ledTo :NobelPrizeInPhysics .
+
+:NobelPrizeInPhysics a dbo:Award ;
+    rdfs:label "Nobel Prize in Physics" ;
+    dbo:awardedTo :AlbertEinstein ;
+    :yearAwarded "1921"^^xsd:gYear ;
+    :awardedFor :PhotoelectricEffect .

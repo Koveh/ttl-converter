@@ -1,0 +1,47 @@
+@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix : <http://example.org/einstein#> .
+
+:AlbertEinstein a :Person ;
+    rdfs:label "Albert Einstein" .
+
+:MilevaMaric a :Person ;
+    rdfs:label "Mileva Marić" .
+
+# First marriage
+:Marriage1 a :Marriage ;
+    :spouse1 :AlbertEinstein ;
+    :spouse2 :MilevaMaric ;
+    :startDate "1903-01-06"^^xsd:date ;
+    :endDate "1919-02-14"^^xsd:date ;
+    :marriageOrder 1 .
+
+# Second marriage (hypothetical for this example)
+:Marriage2 a :Marriage ;
+    :spouse1 :AlbertEinstein ;
+    :spouse2 :MilevaMaric ;
+    :startDate "1925-01-01"^^xsd:date ;
+    :endDate "1930-12-31"^^xsd:date ;
+    :marriageOrder 2 .
+
+# Representing the marriages as a sequence
+:EinsteinMaricMarriages a rdf:Seq ;
+    rdf:_1 :Marriage1 ;
+    rdf:_2 :Marriage2 .
+
+# Connecting Einstein to the marriage sequence
+:AlbertEinstein :hasMarriageHistory :EinsteinMaricMarriages .
+
+# Alternative representation using named graphs
+:Marriage1Graph {
+    :AlbertEinstein :marriedTo :MilevaMaric .
+    :Marriage1 :startDate "1903-01-06"^^xsd:date ;
+               :endDate "1919-02-14"^^xsd:date .
+}
+
+:Marriage2Graph {
+    :AlbertEinstein :marriedTo :MilevaMaric .
+    :Marriage2 :startDate "1925-01-01"^^xsd:date ;
+               :endDate "1930-12-31"^^xsd:date .
+}

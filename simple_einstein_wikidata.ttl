@@ -1,0 +1,50 @@
+@prefix wd: <http://www.wikidata.org/entity/> .
+@prefix wdt: <http://www.wikidata.org/prop/direct/> .
+@prefix p: <http://www.wikidata.org/prop/> .
+@prefix ps: <http://www.wikidata.org/prop/statement/> .
+@prefix pq: <http://www.wikidata.org/prop/qualifier/> .
+@prefix prov: <http://www.w3.org/ns/prov#> .
+@prefix wikibase: <http://wikiba.se/ontology#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+
+wd:Q937 rdfs:label "Albert Einstein" .
+
+# German citizenship (normal rank)
+wd:Q937 p:P27 wd:Q937GermanCitizenship .
+wd:Q937GermanCitizenship a wikibase:Statement ;
+    ps:P27 wd:Q183 ;  # country of citizenship : Germany
+    pq:P580 "1879-03-14"^^xsd:date ;  # start time (birth)
+    pq:P582 "1933-03-28"^^xsd:date ;  # end time (renunciation)
+    wikibase:rank wikibase:NormalRank .
+
+# Swiss citizenship (normal rank)
+wd:Q937 p:P27 wd:Q937SwissCitizenship .
+wd:Q937SwissCitizenship a wikibase:Statement ;
+    ps:P27 wd:Q39 ;  # country of citizenship : Switzerland
+    pq:P580 "1901-02-21"^^xsd:date ;  # start time
+    pq:P582 "1955-04-18"^^xsd:date ;  # end time (death)
+    wikibase:rank wikibase:NormalRank .
+
+# US citizenship (normal rank)
+wd:Q937 p:P27 wd:Q937USCitizenship .
+wd:Q937USCitizenship a wikibase:Statement ;
+    ps:P27 wd:Q30 ;  # country of citizenship : United States
+    pq:P580 "1940-10-01"^^xsd:date ;  # start time
+    pq:P582 "1955-04-18"^^xsd:date ;  # end time (death)
+    wikibase:rank wikibase:NormalRank .
+
+# False claim: Russian citizenship (deprecated rank)
+wd:Q937 p:P27 wd:Q937RussianCitizenship .
+wd:Q937RussianCitizenship a wikibase:Statement ;
+    ps:P27 wd:Q159 ;  # country of citizenship : Russia
+    pq:P580 "1913-01-01"^^xsd:date ;  # fictional start time
+    pq:P582 "1955-04-18"^^xsd:date ;  # fictional end time
+    prov:wasDerivedFrom wd:Q937FalseCitizenshipSource ;
+    wikibase:rank wikibase:DeprecatedRank .
+
+wd:Q937FalseCitizenshipSource a prov:Entity ;
+    rdfs:label "Unreliable source claiming Einstein's Russian citizenship" .
+
+# Direct statements (only include non-deprecated citizenships)
+wd:Q937 wdt:P27 wd:Q183, wd:Q39, wd:Q30 .
